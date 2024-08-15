@@ -30,10 +30,10 @@ app.get('/api/parts',(req, res) => res.send({
     ]
 }));
 
-app.use(history({index: '/indexAntigo.html'}));
+app.use(history({index: '/index.html'}));
 
 app.use('/api/images', express.static('images'));
 
-app.use('/', express.static('dist', {index: 'indexAntigo.html'}));
+app.use('/', express.static('dist', {index: 'index.html'}));
 
 app.listen(8081, ()=> console.log('my api NodeJS express running on 8081'));
