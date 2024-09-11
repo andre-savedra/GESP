@@ -5,9 +5,12 @@ import com.senai.senai.models.dto.PartsDto;
 import com.senai.senai.models.dto.UpdatePartsDto;
 import com.senai.senai.repository.PartsRepository;
 import com.senai.senai.service.PartsService;
+import com.senai.senai.specifications.PartsSpecification;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -26,9 +29,11 @@ public class PartsController {
     PartsService partsService;
 
     @GetMapping("/parts")
-    public ResponseEntity<List<Parts>> getAllParts() {
+    public ResponseEntity<Page<Parts>> getAllParts(
+                                        Pageable pageable,
+                                        PartsSpecification.PartsSpec spec ) {
         //select *from parts;
-        List<Parts> parts = partsService.getAllParts();
+        Page<Parts> parts = partsService.getAllParts(pageable,spec);
         return ResponseEntity.ok(parts);
     }
 
