@@ -9,7 +9,7 @@ spring:
   application:
     name: senai
   datasource:
-    url: jdbc:mysql://localhost:3306/senai?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/senairobots?createDatabaseIfNotExist=true
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
