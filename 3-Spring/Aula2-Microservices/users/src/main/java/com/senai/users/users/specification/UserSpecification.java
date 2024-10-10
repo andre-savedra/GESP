@@ -15,5 +15,5 @@ public class UserSpecification {
             @Spec(path = "birthday", params = {"birthdayStart","birthdayEnd"}, spec = Between.class),
             @Spec(path = "createdDate", params = {"createdDateStart","createdDateEnd"}, spec = Between.class),
     })
-    public static interface UserSpec extends Specification<User> {}
+    public interface UserSpec extends Specification<User> {}
 }

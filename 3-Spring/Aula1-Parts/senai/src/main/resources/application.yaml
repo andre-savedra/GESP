@@ -7,7 +7,7 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: true #opcional
   application:
-    name: senai
+    name: parts-microservice
   datasource:
     url: jdbc:mysql://localhost:3306/senairobots?createDatabaseIfNotExist=true
     username: root
@@ -17,4 +17,15 @@ spring:
 server:
   port: 8080
 
+eureka:
+  client:
+    service-url:
+      defaultZone: 'http://localhost:8089/eureka/'
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    hostname: localhost
 
+app:
+  users-microservice:
+    url: 'http://localhost:8000/users-microservice'
