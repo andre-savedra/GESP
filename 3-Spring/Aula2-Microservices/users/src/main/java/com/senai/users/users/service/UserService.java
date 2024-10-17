@@ -1,5 +1,7 @@
 package com.senai.users.users.service;
 
+import com.senai.users.users.exceptions.UserNotFoundException;
+import com.senai.users.users.exceptions.UsersExeption;
 import com.senai.users.users.models.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,4 +18,6 @@ public interface UserService {
     User updateUser(User user);
 
     void deleteUser(UUID id);
+
+    User getUserById(UUID userId) throws UsersExeption;
 }

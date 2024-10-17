@@ -21,14 +21,14 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/parts") //opcional
+@RequestMapping("/api") //opcional
 @CrossOrigin(origins = "*") //CORS
 public class PartsController {
 
     @Autowired
     PartsService partsService;
 
-    @GetMapping//("/parts")
+    @GetMapping("/parts")
     public ResponseEntity<Page<Parts>> getAllParts(
                                         Pageable pageable,
                                         PartsSpecification.PartsSpec spec ) {

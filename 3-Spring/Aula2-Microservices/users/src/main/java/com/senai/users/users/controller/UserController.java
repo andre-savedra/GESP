@@ -1,5 +1,6 @@
 package com.senai.users.users.controller;
 
+import com.senai.users.users.exceptions.UsersExeption;
 import com.senai.users.users.models.User;
 import com.senai.users.users.models.dto.UserDto;
 import com.senai.users.users.service.UserService;
@@ -14,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api")
@@ -29,6 +32,13 @@ public class UserController {
             UserSpecification.UserSpec spec ) {
         Page<User> users = userService.getAllUsers(pageable,spec);
         return ResponseEntity.ok(users);
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<User> getUserById(
+            @PathVariable UUID userId) throws UsersExeption {
+        User user = userService.getUserById(userId);
+        return ResponseEntity.ok(user);
     }
 
     @PostMapping("/user")

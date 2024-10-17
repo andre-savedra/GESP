@@ -1,5 +1,6 @@
 package com.senai.users.users.service.impl;
 
+import com.senai.users.users.exceptions.UserNotFoundException;
 import com.senai.users.users.models.User;
 import com.senai.users.users.repository.UserRepository;
 import com.senai.users.users.service.UserService;
@@ -50,5 +51,13 @@ public class UserServiceImpl implements UserService {
         if(optionalUser.isPresent()) {
             userRepository.delete(optionalUser.get());
         }
+    }
+
+    @Override
+    public User getUserById(UUID userId) throws UserNotFoundException {
+        //var user --> ou use o var
+        User user = userRepository.findById(userId)
+                .orElseThrow(()-> new UserNotFoundException());
+        return user;
     }
 }
