@@ -21,14 +21,14 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api") //opcional
+@RequestMapping("/api/parts") //opcional
 @CrossOrigin(origins = "*") //CORS
 public class PartsController {
 
     @Autowired
     PartsService partsService;
 
-    @GetMapping("/parts")
+    @GetMapping
     public ResponseEntity<Page<Parts>> getAllParts(
                                         Pageable pageable,
                                         PartsSpecification.PartsSpec spec ) {
@@ -37,7 +37,7 @@ public class PartsController {
         return ResponseEntity.ok(parts);
     }
 
-    @PostMapping//("/parts")
+    @PostMapping
     public ResponseEntity<List<Parts>> addNewPart(@RequestBody @Valid List<PartsDto> parts) {
 
         List<Parts> partsList = parts.stream().map(dto -> {

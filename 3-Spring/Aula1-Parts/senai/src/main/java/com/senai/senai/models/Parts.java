@@ -2,7 +2,10 @@ package com.senai.senai.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serializable;
@@ -13,6 +16,9 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "Parts") //opcional
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Parts implements Serializable {
 
     @Id

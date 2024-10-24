@@ -28,4 +28,4 @@ eureka:
 
 app:
   users-microservice:
-    url: 'http://localhost:8000/users-microservice'
+    url: 'http://localhost:8000/users-microservice/api'
