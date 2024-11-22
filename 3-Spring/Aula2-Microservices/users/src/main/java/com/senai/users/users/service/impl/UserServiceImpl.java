@@ -60,4 +60,9 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(()-> new UserNotFoundException());
         return user;
     }
+
+    @Override
+    public List<User> getUserByIds(List<UUID> userIds) {
+        return userRepository.findAllById(userIds);
+    }
 }

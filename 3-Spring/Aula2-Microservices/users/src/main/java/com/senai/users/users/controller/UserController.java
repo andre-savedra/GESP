@@ -41,6 +41,14 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
+    @GetMapping("/user-ids")
+    public ResponseEntity<List<User>> getUserByIds(
+            @RequestParam List<UUID> userIds) throws UsersExeption {
+        List<User> users = userService.getUserByIds(userIds);
+        return ResponseEntity.ok(users);
+    }
+
+
     @PostMapping("/user")
     public ResponseEntity<List<User>> addNewUsers(@RequestBody @Valid List<UserDto> users) {
 

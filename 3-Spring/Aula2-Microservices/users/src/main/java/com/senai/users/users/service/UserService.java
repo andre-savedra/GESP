@@ -20,4 +20,6 @@ public interface UserService {
     void deleteUser(UUID id);
 
     User getUserById(UUID userId) throws UsersExeption;
+
+    List<User> getUserByIds(List<UUID> userIds);
 }

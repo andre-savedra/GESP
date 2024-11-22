@@ -1,6 +1,8 @@
 package com.senai.senai.service;
 
 import com.senai.senai.models.Robots;
+import com.senai.senai.models.dto.RobotsFullDto;
+import com.senai.senai.specifications.RobotsSpecification;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -17,4 +19,6 @@ public interface RobotsService {
     Robots updateRobot(Robots robot);
 
     void deleteRobot(UUID id);
+
+    Page<RobotsFullDto> getFullRobots(Pageable pageable, Specification<Robots> spec);
 }

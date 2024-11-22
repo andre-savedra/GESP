@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -30,6 +31,13 @@ public class UserService {
         return Objects.nonNull(getUserIfExists((id)));
     }
 
-
+    public List<UserDto> getUsersByIds(List<UUID> ids){
+        try{
+            return userClient.getUserByIds(ids);
+        } catch (Exception e){
+            log.error("An unknown error happened!");
+            return null;
+        }
+    }
 
 }

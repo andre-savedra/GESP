@@ -2,6 +2,7 @@ package com.senai.senai.controller;
 
 import com.senai.senai.models.Robots;
 import com.senai.senai.models.dto.RobotsDto;
+import com.senai.senai.models.dto.RobotsFullDto;
 import com.senai.senai.models.dto.UpdateRobotsDto;
 import com.senai.senai.service.RobotsService;
 import com.senai.senai.specifications.RobotsSpecification;
@@ -30,6 +31,15 @@ public class RobotsController {
                                         RobotsSpecification.RobotsSpec spec ) {
         return ResponseEntity.ok(
                 robotsService.getAllRobots(pageable,spec)
+        );
+    }
+
+    @GetMapping("/full")
+    public ResponseEntity<Page<RobotsFullDto>> getFullRobots(
+            Pageable pageable,
+            RobotsSpecification.RobotsSpec spec ) {
+        return ResponseEntity.ok(
+                robotsService.getFullRobots(pageable,spec)
         );
     }
 

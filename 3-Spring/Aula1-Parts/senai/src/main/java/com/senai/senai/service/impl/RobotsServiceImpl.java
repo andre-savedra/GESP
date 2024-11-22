@@ -3,14 +3,17 @@ package com.senai.senai.service.impl;
 import com.senai.senai.client.UserClient;
 import com.senai.senai.client.UserService;
 import com.senai.senai.models.Robots;
+import com.senai.senai.models.dto.RobotsFullDto;
 import com.senai.senai.models.dto.UserDto;
 import com.senai.senai.repository.RobotsRepository;
 import com.senai.senai.service.RobotsService;
+import com.senai.senai.specifications.RobotsSpecification;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -71,5 +74,40 @@ public class RobotsServiceImpl implements RobotsService {
         if(optionalRobot.isPresent()){
             robotsRepository.delete(optionalRobot.get());
         }
+    }
+
+    @Override
+    public Page<RobotsFullDto> getFullRobots(Pageable pageable, Specification<Robots> spec) {
+        //procura todos os robôs usando a paginação e os filtros:
+        Page<Robots> robotsFound = robotsRepository.findAll(spec, pageable);
+        //procura no microsserviço de users todos os usuários dos robôs encontrados:
+        List<UserDto> userDtos = userService.getUsersByIds(
+                robotsFound.getContent().stream().map(Robots::getUserId).toList()
+        );
+        List<RobotsFullDto> robotsWithUsers = new ArrayList<>();
+
+        robotsFound.stream().forEach(robot->{ //percorre todos os robos encontrados
+            //pegando o usuário correspondente ao robô!
+            var userFound = userDtos.stream().filter(user->
+                   robot.getUserId().equals(user.getId())
+                ).findFirst().orElse(null);
+            //adiciona na lista de robôs com usuário
+            robotsWithUsers.add(
+                 RobotsFullDto.builder()
+                         .id(robot.getId())
+                         .head(robot.getHead())
+                         .rightArm(robot.getRightArm())
+                         .leftArm(robot.getLeftArm())
+                         .base(robot.getBase())
+                         .user(userFound)
+                         .totalCost(robot.getTotalCost())
+                         .createdDate(robot.getCreatedDate())
+                         .build()
+            );
+          }
+        );
+        //retorna o resultado respeitando paginação
+        return new PageImpl<>(robotsWithUsers,
+                robotsFound.getPageable(), robotsFound.getTotalElements());
     }
 }
